@@ -14,7 +14,7 @@ public class BasicPlotting {
 
 		// add a line plot to the PlotPanel
 		plot.addLinePlot("X acceleration", StepCounter.calculateMagnitudesFor(sample1));
-		
+
 		System.out.println(StepCounter.countSteps(sample1));
 		// put the PlotPanel in a JFrame, as a JPanel
 		JFrame frame = new JFrame("Results");
