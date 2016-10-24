@@ -5,25 +5,17 @@ import org.math.plot.Plot2DPanel;
 
 public class BasicPlotting {
 	public static void main(String[] args) {
-		int size = 100;
-		
-		double[] sample1 = new double[size];
-		double[] sample2 = new double[size];
-		
-		for (int i = 0; i < size; i++) {
-			sample2[i] = i;
-			sample1[i] = 10;
-		}
-		
-		addNoise(sample1, 5);
-		addNoise(sample2, 50);
-		
+		String[] columnNames = { "time", "xg", "yg", "zg", "g" };
+		CSVData data = CSVData.readCSVFile("data/walkingSampleData-out.csv", columnNames, 1);
+
+		double[][] sample1 = data.getColumns(new String[] { "xg", "yg", "zg" });
+
 		Plot2DPanel plot = new Plot2DPanel();
-		
+
 		// add a line plot to the PlotPanel
-		plot.addLinePlot("Random signal", sample1);
-		plot.addLinePlot("y = x + noise", sample2);
+		plot.addLinePlot("X acceleration", StepCounter.calculateMagnitudesFor(sample1));
 		
+		System.out.println(StepCounter.countSteps(sample1));
 		// put the PlotPanel in a JFrame, as a JPanel
 		JFrame frame = new JFrame("Results");
 		frame.setSize(800, 600);
@@ -33,7 +25,7 @@ public class BasicPlotting {
 
 	private static void addNoise(double[] sample, int max) {
 		for (int i = 0; i < sample.length; i++) {
-			sample[i] += (-max + Math.random()*2*max);
+			sample[i] += (-max + Math.random() * 2 * max);
 		}
 	}
 }
