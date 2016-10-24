@@ -9,7 +9,12 @@ public class BasicPlotting {
 		CSVData data = CSVData.readCSVFile("data/walkingSampleData-out.csv", columnNames, 1);
 
 		double[][] sample1 = data.getColumns(new String[] { "xg", "yg", "zg" });
+		double[][] sample2 = data.getColumns(new String[] { "time", "xg", "yg", "zg" });
 
+		StepCounter.replaceAbsoluteTime(sample2);
+		
+		displayArray(sample2);
+		
 		Plot2DPanel plot = new Plot2DPanel();
 
 		// add a line plot to the PlotPanel
@@ -26,6 +31,12 @@ public class BasicPlotting {
 	private static void addNoise(double[] sample, int max) {
 		for (int i = 0; i < sample.length; i++) {
 			sample[i] += (-max + Math.random() * 2 * max);
+		}
+	}
+	
+	public static void displayArray(double[][] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(Arrays.toString(arr[i]));
 		}
 	}
 }
